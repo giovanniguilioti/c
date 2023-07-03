@@ -1,4 +1,4 @@
-#include "datastrucutre/heap.h"
+#include "datastructure/heap.h"
 
 int heap_sort(struct heap* heap, int size)
 {
