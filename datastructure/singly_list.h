@@ -21,4 +21,8 @@ int singly_minimum(struct list*);
 
 int singly_maximum(struct list*);
 
+int singly_find(struct list*, int);
+
+int singly_at(struct list*, int);
+
 #endif
