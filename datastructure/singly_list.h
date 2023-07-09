@@ -31,4 +31,14 @@ int singly_push_back(struct list*, int);
 
 int singly_insert(struct list*, int, int);
 
+int singly_pop(struct list*);
+
+int singly_pop_back(struct list*);
+
+int singly_remove(struct list*, int);
+
+int singly_delete(struct list*, int);
+
+int singly_clear(struct list*);
+
 #endif
