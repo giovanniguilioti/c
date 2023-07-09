@@ -25,4 +25,10 @@ int singly_find(struct list*, int);
 
 int singly_at(struct list*, int);
 
+int singly_push(struct list*, int);
+
+int singly_push_back(struct list*, int);
+
+int singly_insert(struct list*, int, int);
+
 #endif

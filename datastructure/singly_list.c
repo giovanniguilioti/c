@@ -77,3 +77,64 @@ int singly_at(struct list* list, int idx)
 
     return temp->key;
 }
+
+int singly_push(struct list* list, int key)
+{
+    struct node* new = malloc(sizeof(struct node));
+    new->key = key;
+    new->next = list->head;
+
+    list->head = new;
+    list->size++;
+    return 1;
+}
+
+int singly_push_back(struct list* list, int key)
+{
+    struct node* new = malloc(sizeof(struct node));
+    new->key = key;
+    new->next = NULL;
+
+    if(singly_empty(list))
+    {
+        list->head = new;
+        list->size++;
+        return 1;
+    }
+
+    struct node* temp = list->head;
+    while(temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = new;
+    list->size++;
+    return 1;
+}
+
+int singly_insert(struct list* list, int key, int idx)
+{
+    struct node* new = malloc(sizeof(struct node));
+    new->key = key;
+    new->next = NULL;
+
+    if(idx == 0)
+    {
+        singly_push_front(list, key);
+        return 1;
+    }
+    if(idx == list->size)
+    {
+        singly_push_back(list, key);
+        return 1;
+    }
+
+    struct node* temp = list->head;
+    int i = 0;
+    while(i++ < idx-1)
+        temp = temp->next;
+
+    new->next = temp->next;
+    temp->next = new;
+    list->size++;
+    return 1;
+}
