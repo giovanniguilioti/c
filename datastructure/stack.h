@@ -23,4 +23,6 @@ int stack_top(struct stack*);
 
 int stack_push(struct stack*, int);
 
+int stack_pop(struct stack*);
+
 #endif

@@ -34,3 +34,16 @@ int stack_push(struct stack* stack, int value)
     stack->size++;
     return 1;
 }
+
+int stack_pop(struct stack* stack)
+{
+    if(stack_empty(stack))
+        return 0;
+
+    struct node* temp = stack->top;
+    stack->top = stack->top->next;
+
+    free(temp);
+    stack->size--;
+    return 1;
+}
