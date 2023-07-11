@@ -23,3 +23,14 @@ int stack_top(struct stack* stack)
 
     return stack->top->key;
 }
+
+int stack_push(struct stack* stack, int value)
+{
+    struct node* new = malloc(sizeof(struct node));
+    new->key = value;
+    new->next = stack->top;
+
+    stack->top = new;
+    stack->size++;
+    return 1;
+}
