@@ -6,9 +6,10 @@ struct bst_node
     int key;
     struct bst_node* left;
     struct bst_node* right;
+    struct bst_node* parent;
 };
 
-struct bst_node* bst_new_node();
+struct bst_node* bst_new_node(int key);
 
 struct bst_node* bst_inorder(struct bst_node* node);
 
@@ -27,5 +28,9 @@ struct bst_node* bst_maximum(struct bst_node* node);
 struct bst_node* bst_successor(struct bst_node* node);
 
 struct bst_node* bst_predecessor(struct bst_node* node);
+
+int bst_insert(struct bst_node* tree, int key);
+
+int bst_node* bst_delete(struct bst_node* tree, int key);
 
 #endif
