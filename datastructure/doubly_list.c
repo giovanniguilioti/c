@@ -1,4 +1,4 @@
-#include "doubly_linkedlist.h"
+#include "doubly_list.h"
 
 int doubly_empty(struct node* head)
 {
