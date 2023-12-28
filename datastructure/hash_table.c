@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "hash_table.h"
 
 struct hash_table* hash_table_init(int size)
@@ -10,57 +11,65 @@ struct hash_table* hash_table_init(int size)
     return new;
 }
 
-static int hash_table_hash(struct hash_table* hash_table, int value)
+static unsigned int hash(struct hash_table* hash_table, char* name)
 {
-    return value % hash_table->size;
+    int length = strlen(name, MAX_NAME);
+    unsigned int hash_value = 0;
+    for(int i = 0; i < length; ++i)
+    {
+        hash_value += name[i];
+        hash_value = (hash_value * name[i] % hash_table->size);
+    }
+    
+    return hash_value;
 }
 
-int hash_table_search(struct hash_table* hash_table, int value)
+int hash_table_search(struct hash_table* hash_table, char* name)
 {
-    int idx = hash_table_hash(hash_table, value);
+    int idx = hash(hash_table, name);
     if(hash_table->body[idx] == NULL)
         return 0;
         
-    return hash_table->body[idx]->key;
+    return 1;
 }
 
-int hash_table_insert(struct hash_table* hash_table, int value)
+int hash_table_insert(struct hash_table* hash_table, char* name)
 {
     struct node* new = malloc(sizeof(struct node));
-    new->key = value;
+    new->name = name;
 
-    if(hash_table->body[hash_table_hash(hash_table, value)] == NULL)
+    if(hash_table->body[hash(hash_table, name)] == NULL)
     {
-        hash_table->body[hash_table_hash(hash_table, value)] = new;
+        hash_table->body[hash(hash_table, name)] = new;
         new->next = NULL;
         return 1;
     }
 
-    new->next = hash_table->body[hash_table_hash(hash_table, value)]->next;
+    new->next = hash_table->body[hash(hash_table, name)]->next;
 
-    hash_table->body[hash_table_hash(hash_table, value)]->next = new;
+    hash_table->body[hash(hash_table, name)]->next = new;
     return 1;
 }
 
 
-int hash_table_delete(struct hash_table* hash_table, int value)
+int hash_table_delete(struct hash_table* hash_table, char* name)
 {
-    struct node* temp = hash_table->body[hash_table_hash(hash_table, value)];
+    struct node* temp = hash_table->body[hash(hash_table, name)];
 
     if(temp == NULL)
         return 0;
 
-    if(temp->key == value)
+    if(strcmp(temp->name, name) == 0)
     {
         struct node* rm = temp;
-        hash_table->body[hash_table_hash(hash_table, value)]= temp->next;
+        hash_table->body[hash(hash_table, name)]= temp->next;
         free(rm);
         return 1;
     }
     
     while(temp->next != NULL)
     {
-        if(temp->next->key == value)
+        if(strcmp(temp->next->key, name) == 0)
         {
             struct node* rm = temp->next;
             temp->next = rm->next;

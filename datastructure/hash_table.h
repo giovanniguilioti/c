@@ -1,9 +1,11 @@
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
 
+#define MAX_NAME 256
+
 struct node
 {
-    int key;
+    char* name;
     struct node* next;
 };
 
@@ -15,10 +17,10 @@ struct hash_table
 
 struct hash_table* hash_table_init();
 
-int hash_table_search(struct hash_table*, int);
+int hash_table_search(struct hash_table*, char* name);
 
-int hash_table_insert(struct hash_table*, int);
+int hash_table_insert(struct hash_table*, char* name);
 
-int hash_table_delete(struct hash_table*, int);
+int hash_table_delete(struct hash_table*, char* name);
 
 #endif
